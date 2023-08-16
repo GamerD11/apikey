@@ -1,41 +1,36 @@
-GNU nano 7.2                                                go/bin/apikey
 #! /bin/bash
 echo "Usage 1 ClientId,Username,Token 2 ClientSecret"
 
 echo ""
-curl -X POST -k -s -o /dev/null  "https://graph.facebook.com/oauth/access_token?client_id="$1"&client_secret="$2"&redirect_uri=&gran>
+curl -X POST -k -s -o /dev/null  "https://graph.facebook.com/oauth/access_token?client_id="$1"&client_secret="$2"&redirect_uri=&grant_type=client_credentials" -w "%{http_code}"
 echo "      Facebook Api v1 "
 curl  -k -s -o /dev/null  -w "%{http_code}" "https://developers.facebook.com/tools/debug/accesstoken/?access_token="$1"&version=v3.2"
 echo "      Facebook Api v2"
 curl  -k -s -o /dev/null  -w "%{http_code}" -u $1: "https://api.github.com/user"
 echo "      Github Api"
-curl  -k -s -o /dev/null  -w "%{http_code}" "https://gitlab.example.com/api/v4/projects?private_token="$1""
-echo "      Github Personal"
-curl  -k -s -o /dev/null  -w "%{http_code}" "https://api.github.com/users/whatever?client_id="$1"&client_secret="$2""
-echo "      Github Client"
-curl  -k -s -o /dev/null  -w "%{http_code}" -H "authorization: Bearer "$1"" "https://api.twitter.com/1.1/account_activity/all/subscr>
+curl  -k -s -o /dev/null  -w "%{http_code}" -H "authorization: Bearer "$1"" "https://api.twitter.com/1.1/account_activity/all/subscriptions/count.json"
 echo "      Twitter Token"
-curl -X POST  -k -s -o /dev/null  -w "%{http_code}"  -u "$1:$2e" --data 'grant_type=client_credentials' 'https://api.twitter.com/oau>
+curl -X POST  -k -s -o /dev/null  -w "%{http_code}"  -u "$1:$2e" --data 'grant_type=client_credentials' 'https://api.twitter.com/oauth2/token'
 echo "      Twitter Api v2"
 curl -X POST  -k -s -o /dev/null  -w "%{http_code}" "https://www.deviantart.com/api/v1/oauth2/placebo" -d "access_token="$1""
 echo "      Debian Api"
-curl  -k -s -o /dev/null  -w "%{http_code}" "https://app.pendo.io/api/v1/metadata/schema/account" -H 'content-type: application/json>
+curl  -k -s -o /dev/null  -w "%{http_code}" "https://app.pendo.io/api/v1/metadata/schema/account" -H 'content-type: application/json' -H "x-pendo-integration-key:"$1""
 echo "      Pendo Api"
-curl  -k -s -o /dev/null  -w "%{http_code}" "https://api.sendgrid.com/v3/scopes" -H "Authorization: Bearer "$1"" -H "Content-Type: a>
+curl  -k -s -o /dev/null  -w "%{http_code}" "https://api.sendgrid.com/v3/scopes" -H "Authorization: Bearer "$1"" -H "Content-Type: application/json"
 echo "      Sendgrid Api"
-curl -X POST  -k -s -o /dev/null  -w "%{http_code}" "https://api.dropboxapi.com/2/users/get_current_account" --header "Authorization>
+curl -X POST  -k -s -o /dev/null  -w "%{http_code}" "https://api.dropboxapi.com/2/users/get_current_account" --header "Authorization: Bearer "$1""
 echo "      Dropbox Api"
 curl  -k -s -o /dev/null  -w "%{http_code}" --user "'api:key-"$1"" "https://api.mailgun.net/v3/domains"
 echo "      Mailgun Api"
-curl -X POST  -k -s -o /dev/null  -w "%{http_code}" "https://api.heroku.com/apps" -H "Accept: application/vnd.heroku+json; version=3>
+curl -X POST  -k -s -o /dev/null  -w "%{http_code}" "https://api.heroku.com/apps" -H "Accept: application/vnd.heroku+json; version=3" -H "Authorization: Bearer "$1""
 echo "      Heroku Api"
 curl  -k -s -o /dev/null  -w "%{http_code}" "https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token="$1""
 echo "      Mapbox Api"
-curl  -k -s -o /dev/null  -w "%{http_code}" -H "Accept: application/vnd.pagerduty+json;version=2"  -H "Authorization: Token token="$>
+curl  -k -s -o /dev/null  -w "%{http_code}" -H "Accept: application/vnd.pagerduty+json;version=2"  -H "Authorization: Token token="$1""  "https://api.pagerduty.com/schedules"
 echo "      Pagerduty Api"
-curl  -k -s -o /dev/null  -w "%{http_code}" "https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montrea>
+curl  -k -s -o /dev/null  -w "%{http_code}" "https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key="$1""
 echo "      Google Maps 1"
-curl  -k -s -o /dev/null  -w "%{http_code}"  "https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&siz>
+curl  -k -s -o /dev/null  -w "%{http_code}"  "https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&size=2500x2000&maptype=roadmap&key="$1""
 echo "      Google Maps 2"
 curl  -k -s -o /dev/null  -w "%{http_code}" -H "Authorization: Bearer "$1"" "https://api.buildkite.com/v2/user"
 echo "      Buildkite Api"
@@ -45,7 +40,7 @@ curl  -k -s -o /dev/null  -w "%{http_code}" -H "Authorization: Bearer "$1"" "htt
 echo "      Spotify Api"
 curl  -k -s -o /dev/null  -w "%{http_code}" "https://api.instagram.com/v1/users/self/?access_token="$1""
 echo "      Instagram Api"
-curl  -k -s -o /dev/null  -w "%{http_code}"  "https://api.sandbox.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1" -H "Cont>
+curl  -k -s -o /dev/null  -w "%{http_code}"  "https://api.sandbox.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1" -H "Content-Type: application/json" -H "Authorization: Bearer [$1]"
 echo "      PayPal Api"
 curl  -k -s -o /dev/null  -w "%{http_code}" "https://api.stripe.com/v1/charges" -u $1:
 echo "      Stripe Api"
